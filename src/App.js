@@ -1,28 +1,42 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
-class App extends Component {
-  render() {
-    return (
+import Index from './components/Index'
+import About from './components/About'
+import Song from './components/Song'
+import SongList from './components/SongList'
+
+import SongService from './helpers/SongService'
+
+import './App.css'
+
+const App = () => {
+  const [songs, setSongs] = useState([])
+
+  useEffect(() => {
+    SongService.fetchAll().then(songs => setSongs(songs))
+  }, [])
+
+  return (
+    <Router>
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+        <header>
+          <h1>Death By Song</h1>
+
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/songs">All Songs</Link></li>
+            <li><Link to="/about">About</Link></li>
+          </ul>
         </header>
+
+        <Route path="/" exact component={() => <Index songs={songs} /> } />
+        <Route path="/songs" component={() => <SongList songs={songs} /> } />
+        <Route path="/about/" component={About} />
+        <Route path="/song/:id" component={Song} />
       </div>
-    );
-  }
+    </Router>
+  );
 }
 
-export default App;
+export default App
