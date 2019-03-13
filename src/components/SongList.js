@@ -12,7 +12,10 @@ const SongList = ({songs}) => {
                       .filter(song => !method || song.murderMethods.includes(method))
                       .filter(song => !artist || song.artist.includes(artist))
                       .filter(song => !title || song.title.includes(title))
-  const songElements = filteredSongs.map(song => <SongCard key={song._id["$oid"]} song={song} />)
+
+  const songElements = filteredSongs.map(song => 
+    <SongCard key={song._id["$oid"]} song={song} />
+  )
 
   const murderOptions = _.chain(songs.map((song) => song.murderMethods))
                       .flatten()
@@ -55,7 +58,7 @@ const SongList = ({songs}) => {
           {_.uniq(filteredSongs.map(s => s.artist)).map(a => <option key={a} value={a} />)}
         </datalist>
 
-        <button onClick={reset}>Reset</button>
+        <button onClick={reset}>Clear</button>
       </form>
       {songElements}
     </div>
