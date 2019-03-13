@@ -13,7 +13,7 @@ const SongList = ({songs}) => {
                       .filter(song => !artist || song.artist.includes(artist))
                       .filter(song => !title || song.title.includes(title))
 
-  const songElements = filteredSongs.map(song => 
+  const songElements = filteredSongs.map(song =>
     <SongCard key={song._id["$oid"]} song={song} />
   )
 
@@ -45,7 +45,7 @@ const SongList = ({songs}) => {
           onChange={(e) => setTitle(e.target.value)}
           value={title} />
         <datalist id="titles">
-          {filteredSongs.map(s => s.title).map(t => <option key={t} value={t} />)}
+          {filteredSongs.map(song => <option key={song._id["$oid"]} value={song.title} />)}
         </datalist>
 
         <input
