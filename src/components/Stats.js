@@ -22,7 +22,7 @@ const Stats = ({songs}) => {
 
   return (
     <article>
-      <h2>Tracking...</h2>
+      <h2>Tracking {songs.length} songs and...</h2>
       {elements}
     </article>
   )
