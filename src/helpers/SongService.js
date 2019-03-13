@@ -10,6 +10,11 @@ class SongService {
     return fetch(config.apiUrl + id)
       .then(response => response.json())
   }
+
+  static fetchByArtist(artist){
+    return fetch(`${config.apiUrl}by_artist/${artist}`)
+      .then(response => response.json())
+  }
 }
 
 export default SongService

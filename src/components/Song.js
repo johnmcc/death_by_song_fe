@@ -7,29 +7,37 @@ import SongList from './SongList'
 
 const Song = ({match}) => {
   const [song, setSong] = useState(null)
-  const [allSongs, setAllSongs] = useState(null)
+  const [artistSongs, setArtistSongs] = useState(null)
 
   let isMounted = false
 
   useEffect(() => {
     isMounted = true
 
-    Promise.all([
-        SongService.fetchOne(match.params.id),
-        SongService.fetchAll()
-    ]).then(([fetchedSong, fetchedAllSongs]) => {
-      if(isMounted){
-        setSong(fetchedSong)
-        setAllSongs(fetchedAllSongs)
-      }
-    })
+    SongService
+      .fetchOne(match.params.id)
+      .then(song => {
+        if(isMounted){
+          setSong(song)
+          return song;
+        }
+      })
+      .then(song => {
+        SongService
+          .fetchByArtist(song.artist)
+          .then(songs => {
+            if(isMounted){
+              setArtistSongs(songs)
+            }
+          })
+      })
 
     return () => { isMounted = false }
   }, [match.params.id])
 
-  if (!song || !allSongs) return null
+  if (!song || !artistSongs) return null
 
-  const related = allSongs.filter(songToCheck => {
+  const related = artistSongs.filter(songToCheck => {
     return song.artist === songToCheck.artist && song.title !== songToCheck.title
   })
 
