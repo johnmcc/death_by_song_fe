@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import _ from 'lodash'
 import SongCard from './SongCard'
+import './SongList.css'
+import _ from 'lodash'
 import Reset from '../helpers/Reset'
 
 const SongList = ({songs}) => {
@@ -17,11 +18,11 @@ const SongList = ({songs}) => {
     <SongCard key={song._id["$oid"]} song={song} />
   )
 
-  const murderOptions = _.chain(songs.map((song) => song.murderMethods))
+  const murderOptions = _.chain(filteredSongs.map((song) => song.murderMethods))
                       .flatten()
                       .uniq()
                       .map(method =>
-                        <option key={method} value={method}>{method}</option>
+                        <option key={method} value={method} />
                       )
                       .value()
 
@@ -33,14 +34,10 @@ const SongList = ({songs}) => {
   return (
     <div id="songList">
       <form>
-        <select onChange={(e) => setMethod(e.target.value)} value={method}>
-          <option value="" key="select">Select...</option>
-          {murderOptions}
-        </select>
-
         <input
           list="titles"
           placeholder="Title"
+          id="title"
           type="text"
           onChange={(e) => setTitle(e.target.value)}
           value={title} />
@@ -51,11 +48,23 @@ const SongList = ({songs}) => {
         <input
           list="artists"
           placeholder="Artist"
+          id="artist"
           type="text"
           onChange={(e) => setArtist(e.target.value)}
           value={artist} />
         <datalist id="artists">
           {_.uniq(filteredSongs.map(s => s.artist)).map(a => <option key={a} value={a} />)}
+        </datalist>
+
+        <input
+          list="murderMethodsList"
+          placeholder="Murder Method"
+          id="murderMethods"
+          type="text"
+          onChange={(e) => setMethod(e.target.value)}
+          value={method} />
+        <datalist id="murderMethodsList">
+          {murderOptions}
         </datalist>
 
         <button onClick={reset}>Clear</button>
