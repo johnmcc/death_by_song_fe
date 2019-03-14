@@ -25,6 +25,18 @@ a:hover, a:active, a:focus {
   text-decoration: none;
 }
 
+a.btn, a.btn:link, a.btn:visited {
+  background: #8a0303;
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  padding: 15px;
+}
+
+a.btn:hover, a.btn:active, a.btn:focus {
+  background: #ba1414;
+}
+
 header {
   display: flex;
   padding: 20px 0;
@@ -49,12 +61,11 @@ header ul a, header ul a:link, header ul a:visited {
   text-decoration: none;
   padding: 15px;
   color: #000;
-  transition: all 0.15s ease-in;
   font-size: 18px;
 }
 
 header ul a:hover, header ul a:active, header ul a:focus {
-  background: #8a0303;
+  background: #ba1414;
   color: #ddd;
 }
 
