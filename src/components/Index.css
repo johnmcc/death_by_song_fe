@@ -1,0 +1,8 @@
+#indexWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+#indexWrapper article {
+  width: 45%;
+}

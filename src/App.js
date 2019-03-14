@@ -25,15 +25,17 @@ const App = () => {
 
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/songs">All Songs</Link></li>
+            <li><Link to="/songs">Explore</Link></li>
             <li><Link to="/about">About</Link></li>
           </ul>
         </header>
 
-        <Route path="/" exact component={() => <Index songs={songs} /> } />
-        <Route path="/songs" component={() => <SongList songs={songs} /> } />
-        <Route path="/about/" component={About} />
-        <Route path="/song/:id" component={Song} />
+        <main>
+          <Route path="/" exact component={() => <Index songs={songs} /> } />
+          <Route path="/songs" component={() => <SongList songs={songs} /> } />
+          <Route path="/about/" component={About} />
+          <Route path="/song/:id" component={Song} />
+        </main>
       </div>
     </Router>
   );
