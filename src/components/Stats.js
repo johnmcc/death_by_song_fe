@@ -7,15 +7,16 @@ import './Stats.css'
 const Stats = ({songs}) => {
   if(!songs.length) return null
 
-  let stats = countBy(flatten(songs.map(song => song.murderMethods)))
+  const stats = countBy(flatten(songs.map(song => song.murderMethods)))
+  const keysSorted = Object.keys(stats).sort(function(a,b){return stats[b]-stats[a]})
 
   let elements = []
 
-  for(let stat in stats){
-    if(stats.hasOwnProperty(stat)){
+  for(let key of keysSorted){
+    if(stats.hasOwnProperty(key)){
       elements.push(
-        <span key={stat}>
-          <CountUp end={stats[stat]} duration={2} /> death{stats[stat] > 1 && 's'} by {stat}
+        <span key={key}>
+          <CountUp end={stats[key]} duration={2} /> death{stats[key] > 1 && 's'} by {key}
         </span>
       )
     }
