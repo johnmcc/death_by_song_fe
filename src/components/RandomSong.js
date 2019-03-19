@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import DeathBySongContext from '../store/context'
 import Youtube from './Youtube'
 import { Link } from 'react-router-dom'
+import sample from 'lodash/sample'
+
 import './RandomSong.css'
 
-const RandomSong = ({song}) => {
-  if(!song) return null
+const RandomSong = () => {
+  const {state} = useContext(DeathBySongContext)
+
+  if(!state.songs.length) return null
+
+  const song = sample(state.songs)
 
   const href = `/song/${song._id["$oid"]}`
 

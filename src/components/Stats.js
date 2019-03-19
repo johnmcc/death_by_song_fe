@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import DeathBySongContext from '../store/context'
 import CountUp from 'react-countup'
 import countBy from 'lodash/countBy'
 import flatten from 'lodash/flatten'
 import './Stats.css'
 
-const Stats = ({songs}) => {
+const Stats = () => {
+  const { state } = useContext(DeathBySongContext)
+  const songs = state.songs
+
   if(!songs.length) return null
 
   const stats = countBy(flatten(songs.map(song => song.murderMethods)))

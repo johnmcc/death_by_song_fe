@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import DeathBySongContext from '../store/context'
+
 import SongCard from './SongCard'
 import './SongList.css'
 import _ from 'lodash'
 import Reset from '../helpers/Reset'
 
-const SongList = ({songs}) => {
+const SongList = () => {
+
+  const { state } = useContext(DeathBySongContext)
+  const songs = state.songs
+
   let [method, setMethod] = useState("")
   let [artist, setArtist] = useState("")
   let [title, setTitle] = useState("")
